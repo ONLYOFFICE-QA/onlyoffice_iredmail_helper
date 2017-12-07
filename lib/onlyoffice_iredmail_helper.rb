@@ -20,6 +20,12 @@ module OnlyofficeIredmailHelper
       @body = options[:body]
     end
 
+    def inspect
+      "IredMailHelper domain: #{@domainname}, " \
+      "user: #{@username}, " \
+      "subject: #{@subject}"
+    end
+
     def login
       @imap = Net::IMAP.new(@domainname)
       @imap.authenticate('LOGIN', @username, @password)
