@@ -47,6 +47,7 @@ END_OF_MESSAGE
       options[:subject] ||= @default_subject
       options[:body] ||= @default_body
       options[:mailto] ||= @default_user
+      p @domainname
       smtp = Net::SMTP.start(@domainname, 25, @username, @username, @password, :login)
       smtp.send_message create_msg(options), @username, options[:mailto]
       smtp.finish
