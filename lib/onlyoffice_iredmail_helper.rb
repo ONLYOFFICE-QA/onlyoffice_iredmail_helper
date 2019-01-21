@@ -32,7 +32,7 @@ module OnlyofficeIredmailHelper
       @imap.authenticate('LOGIN', @username, @password)
     end
 
-    def create_msg(msg_data = {}) # String inside, do not change formatting
+    def create_msg(msg_data = {})
       <<END_OF_MESSAGE
 From: #{@username}
 To: #{msg_data[:mailto]}

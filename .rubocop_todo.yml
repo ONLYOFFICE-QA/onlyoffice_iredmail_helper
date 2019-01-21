@@ -28,11 +28,6 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 22
 
-# Offense count: 1
-Style/CommentedKeyword:
-  Exclude:
-    - 'lib/onlyoffice_iredmail_helper.rb'
-
 # Offense count: 12
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
