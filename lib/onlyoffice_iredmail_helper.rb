@@ -135,6 +135,32 @@ END_OF_MESSAGE
       false
     end
 
+    def get_email_by_subject(options = {}, times = 300, move_out = false)
+      login
+      @imap.select('INBOX')
+      start_time = Time.now
+      while Time.now - start_time < times
+        get_emails_search_or_new(options).each do |message_id|
+          mail = get_mail_data(message_id)
+          string_found = mail[:subject].to_s.upcase.gsub(/\s+/, ' ')
+          string_to_be_found = options[:subject].to_s.upcase.gsub(/\s+/, ' ')
+          next unless string_found.include? string_to_be_found
+
+          if move_out
+            @imap.copy(message_id, 'checked')
+            @imap.store(message_id, '+FLAGS', [:Deleted])
+            @imap.expunge
+          else
+            @imap.store(message_id, '+FLAGS', [:Seen])
+          end
+          @imap.logout
+          @imap.disconnect
+          return mail
+        end
+      end
+      nil
+    end
+
     private
 
     def get_emails_search_or_new(options)
