@@ -8,6 +8,7 @@ require 'yaml'
 require 'onlyoffice_iredmail_helper/version'
 
 module OnlyofficeIredmailHelper
+  # Class for working with mail
   class IredMailHelper
     attr_reader :username
 
