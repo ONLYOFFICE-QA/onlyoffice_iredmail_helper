@@ -8,6 +8,7 @@ require 'yaml'
 require 'onlyoffice_iredmail_helper/version'
 
 module OnlyofficeIredmailHelper
+  # Class for working with mail
   class IredMailHelper
     attr_reader :username
 
@@ -31,7 +32,7 @@ module OnlyofficeIredmailHelper
       @imap.authenticate('LOGIN', @username, @password)
     end
 
-    def create_msg(msg_data = {}) # String inside, do not change formatting
+    def create_msg(msg_data = {})
       <<END_OF_MESSAGE
 From: #{@username}
 To: #{msg_data[:mailto]}
@@ -83,6 +84,7 @@ END_OF_MESSAGE
           mail_subject_found = mail[:subject].to_s.upcase
           mail_subject_to_be_found = options[:subject].to_s.upcase
           next unless mail_subject_found.include? mail_subject_to_be_found
+
           @imap.store(message_id, '+FLAGS', [:Seen])
           @imap.logout
           @imap.disconnect
@@ -102,6 +104,7 @@ END_OF_MESSAGE
           mail_subject_found = mail[:subject].to_s.upcase
           mail_subject_to_be_found = options[:subject].to_s.upcase
           next unless mail_subject_found.include? mail_subject_to_be_found
+
           @imap.store(message_id, '+FLAGS', [:Seen])
           @imap.logout
           @imap.disconnect
@@ -120,6 +123,7 @@ END_OF_MESSAGE
           string_found = get_mail_data(message_id, options[:search])[:subject].to_s.upcase.gsub(/\s+/, ' ')
           string_to_be_found = options[:subject].to_s.upcase.gsub(/\s+/, ' ')
           next unless string_found.include? string_to_be_found
+
           if move_out
             @imap.copy(message_id, 'checked')
             @imap.store(message_id, '+FLAGS', [:Deleted])
@@ -187,6 +191,7 @@ END_OF_MESSAGE
     # @return [Array <String>] list of keys
     def read_defaults
       return if read_env_defaults
+
       yaml = YAML.load_file(Dir.home + '/.gem-onlyoffice_iredmail_helper/config.yml')
       @default_domain = yaml['domain']
       @default_user = yaml['user']
@@ -199,6 +204,7 @@ END_OF_MESSAGE
     # Read keys from env variables
     def read_env_defaults
       return false unless ENV['IREDMAIL_PASSWORD']
+
       @default_domain = ENV['IREDMAIL_DOMAIN']
       @default_user = ENV['IREDMAIL_USER']
       @default_password = ENV['IREDMAIL_PASSWORD'].to_s
