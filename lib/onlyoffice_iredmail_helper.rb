@@ -67,7 +67,7 @@ END_OF_MESSAGE
     def delete_email_by_subject(subject)
       login
       @imap.select('INBOX')
-      id_emails = @imap.search(['SUBJECT', subject.force_encoding('ascii-8bit')])
+      id_emails = @imap.search(['SUBJECT', subject.dup.force_encoding('ascii-8bit')])
       @imap.store(id_emails, '+FLAGS', [:Deleted]) unless id_emails.empty?
       @imap.close
       @imap.logout
