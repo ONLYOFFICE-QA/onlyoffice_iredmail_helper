@@ -28,22 +28,6 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 22
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, never
-Style/FrozenStringLiteralComment:
-  Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'iredmail_spec.rb'
-    - 'lib/onlyoffice_iredmail_helper.rb'
-    - 'lib/onlyoffice_iredmail_helper/version.rb'
-    - 'onlyoffice_iredmail_helper.gemspec'
-    - 'spec/iredmail_spec.rb'
-    - 'spec/onlyoffice_iredmail_helper_spec.rb'
-    - 'spec/spec_helper.rb'
-
 # Offense count: 13
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
