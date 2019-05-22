@@ -5,3 +5,7 @@
 ### New Features
 
 * Add `IredMailHelper#get_email_by_subject` method
+
+### Fixes
+
+* Fix using `delete_email_by_subject` for frozen strings
