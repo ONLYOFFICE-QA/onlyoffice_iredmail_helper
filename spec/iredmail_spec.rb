@@ -12,6 +12,10 @@ RSpec.describe OnlyofficeIredmailHelper::IredMailHelper do
     expect(mail_helper.inspect).not_to include('password')
   end
 
+  it 'has field with full email name' do
+    expect(mail_helper.email).to eq("#{mail_helper.username}@#{mail_helper.domainname}")
+  end
+
   it 'send_mail' do
     mail_helper.send_mail(subject: subject, mailto: mail_helper.username)
     expect(mail_helper.check_email_by_subject(subject: subject)).to be true

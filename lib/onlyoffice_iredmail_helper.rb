@@ -13,6 +13,7 @@ module OnlyofficeIredmailHelper
   # Class for working with mail
   class IredMailHelper
     attr_reader :username
+    attr_reader :domainname
 
     def initialize(options = {})
       read_defaults
@@ -27,6 +28,11 @@ module OnlyofficeIredmailHelper
       "IredMailHelper domain: #{@domainname}, " \
       "user: #{@username}, " \
       "subject: #{@subject}"
+    end
+
+    # @return [String] full email address
+    def email
+      "#{@username}@#{@domainname}"
     end
 
     def login
