@@ -8,6 +8,10 @@ RSpec.describe OnlyofficeIredmailHelper::IredMailHelper do
 
   before { mail_helper.delete_all_messages }
 
+  it 'has a version number' do
+    expect(OnlyofficeIredmailHelper::VERSION).not_to be nil
+  end
+
   it 'inspect not show any password' do
     expect(mail_helper.inspect).not_to include('password')
   end
