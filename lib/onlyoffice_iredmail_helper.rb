@@ -60,9 +60,7 @@ END_OF_MESSAGE
       @imap.select('INBOX')
       @imap.store(@imap.search(['ALL']), '+FLAGS', [:Deleted]) unless @imap.search(['ALL']).empty?
       OnlyofficeLoggerHelper.log('Delete all messages')
-      @imap.close
-      @imap.logout
-      @imap.disconnect
+      close
     end
 
     # You need to add '#encoding: ascii-8bit' to your .rb file
@@ -71,9 +69,7 @@ END_OF_MESSAGE
       @imap.select('INBOX')
       id_emails = @imap.search(['SUBJECT', subject.dup.force_encoding('ascii-8bit')])
       @imap.store(id_emails, '+FLAGS', [:Deleted]) unless id_emails.empty?
-      @imap.close
-      @imap.logout
-      @imap.disconnect
+      close
     end
 
     def get_text_body_email_by_subject(options = {}, times = 300)
@@ -88,8 +84,7 @@ END_OF_MESSAGE
           next unless mail_subject_found.include? mail_subject_to_be_found
 
           @imap.store(message_id, '+FLAGS', [:Seen])
-          @imap.logout
-          @imap.disconnect
+          close
           return mail[:body]
         end
       end
@@ -108,8 +103,7 @@ END_OF_MESSAGE
           next unless mail_subject_found.include? mail_subject_to_be_found
 
           @imap.store(message_id, '+FLAGS', [:Seen])
-          @imap.logout
-          @imap.disconnect
+          close
           return mail[:html_body]
         end
       end
@@ -131,8 +125,7 @@ END_OF_MESSAGE
           else
             @imap.store(message_id, '+FLAGS', [:Seen])
           end
-          @imap.logout
-          @imap.disconnect
+          close
           return true
         end
       end
@@ -155,8 +148,7 @@ END_OF_MESSAGE
           else
             @imap.store(message_id, '+FLAGS', [:Seen])
           end
-          @imap.logout
-          @imap.disconnect
+          close
           return mail
         end
       end
@@ -164,6 +156,14 @@ END_OF_MESSAGE
     end
 
     private
+
+    # Correct close of mail account
+    # @return [Void]
+    def close
+      @imap.close
+      @imap.logout
+      @imap.disconnect
+    end
 
     # Move out message to `checked` directory
     # @param message_id [String] id of message
