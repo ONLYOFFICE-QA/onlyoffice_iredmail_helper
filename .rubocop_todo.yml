@@ -35,12 +35,6 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 22
 
-# Offense count: 11
-# Configuration parameters: IgnoreSharedExamples.
-RSpec/NamedSubject:
-  Exclude:
-    - 'spec/onlyoffice_iredmail_helper/ired_mail_helper_spec.rb'
-
 # Offense count: 12
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
