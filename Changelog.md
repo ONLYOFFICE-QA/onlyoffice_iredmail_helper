@@ -5,6 +5,7 @@
 ### New Features
 
 * Add `IredMailHelper#get_email_by_subject` method
+* Add support of `rubocop-performance` and `rubocop-rspec`
 
 ### Fixes
 
