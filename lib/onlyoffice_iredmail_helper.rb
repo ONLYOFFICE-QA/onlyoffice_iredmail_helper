@@ -127,9 +127,7 @@ END_OF_MESSAGE
           next unless string_found.include? string_to_be_found
 
           if move_out
-            @imap.copy(message_id, 'checked')
-            @imap.store(message_id, '+FLAGS', [:Deleted])
-            @imap.expunge
+            move_out_message(message_id)
           else
             @imap.store(message_id, '+FLAGS', [:Seen])
           end
@@ -153,9 +151,7 @@ END_OF_MESSAGE
           next unless string_found.include? string_to_be_found
 
           if move_out
-            @imap.copy(message_id, 'checked')
-            @imap.store(message_id, '+FLAGS', [:Deleted])
-            @imap.expunge
+            move_out_message(message_id)
           else
             @imap.store(message_id, '+FLAGS', [:Seen])
           end
@@ -168,6 +164,15 @@ END_OF_MESSAGE
     end
 
     private
+
+    # Move out message to `checked` directory
+    # @param message_id [String] id of message
+    # @return [Void]
+    def move_out_message(message_id)
+      @imap.copy(message_id, 'checked')
+      @imap.store(message_id, '+FLAGS', [:Deleted])
+      @imap.expunge
+    end
 
     def get_emails_search_or_new(options)
       if options[:search]
