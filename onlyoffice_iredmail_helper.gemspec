@@ -4,7 +4,7 @@ $LOAD_PATH.unshift File.expand_path('lib', __dir__)
 require 'onlyoffice_iredmail_helper/version'
 Gem::Specification.new do |s|
   s.name = 'onlyoffice_iredmail_helper'
-  s.version = OnlyofficeIredmailHelper:: VERSION
+  s.version = OnlyofficeIredmailHelper::VERSION
   s.platform = Gem::Platform::RUBY
   s.authors = ['ONLYOFFICE', 'Pavel Lobashov']
   s.summary = 'ONLYOFFICE Helper Gem for iRedMail'
