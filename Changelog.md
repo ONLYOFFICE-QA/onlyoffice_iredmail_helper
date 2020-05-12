@@ -10,3 +10,4 @@
 ### Fixes
 
 * Fix using `delete_email_by_subject` for frozen strings
+* Fix coverage reports on non-ci environments
