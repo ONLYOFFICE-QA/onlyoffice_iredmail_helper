@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe OnlyofficeIredmailHelper::IredMailHelper do
-  mail_helper = OnlyofficeIredmailHelper::IredMailHelper.new
+  mail_helper = described_class.new
   let(:subject) { "email title: #{Time.now.nsec}" }
 
   before { mail_helper.delete_all_messages }

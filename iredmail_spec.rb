@@ -3,7 +3,7 @@
 require 'rspec'
 
 describe IredMailHelper do
-  mail_helper = IredMailHelper.new
+  mail_helper = described_class.new
   let(:subject) { StringHelper.generate_random_number('email title') }
 
   before { mail_helper.delete_all_messages }

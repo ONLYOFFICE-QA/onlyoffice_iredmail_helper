@@ -30,15 +30,6 @@ Metrics/MethodLength:
   Max: 22
 
 # Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: SkipBlocks, EnforcedStyle.
-# SupportedStyles: described_class, explicit
-RSpec/DescribedClass:
-  Exclude:
-    - 'iredmail_spec.rb'
-    - 'spec/iredmail_spec.rb'
-
-# Offense count: 2
 # Configuration parameters: CustomTransform, IgnoreMethods.
 RSpec/FilePath:
   Exclude:
