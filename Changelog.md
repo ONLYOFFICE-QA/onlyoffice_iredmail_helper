@@ -6,6 +6,7 @@
 
 * Add `IredMailHelper#get_email_by_subject` method
 * Add support of `rubocop-performance` and `rubocop-rspec`
+* New method `email_by_date_and_title`
 
 ### Fixes
 

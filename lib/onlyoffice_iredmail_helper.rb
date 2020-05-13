@@ -7,11 +7,13 @@ require 'net/smtp'
 require 'onlyoffice_logger_helper'
 require 'time'
 require 'yaml'
-require 'onlyoffice_iredmail_helper/version'
+require_relative 'onlyoffice_iredmail_helper/mail_getters'
+require_relative 'onlyoffice_iredmail_helper/version'
 
 module OnlyofficeIredmailHelper
   # Class for working with mail
   class IredMailHelper
+    include MailGetters
     attr_reader :username
 
     def initialize(options = {})
