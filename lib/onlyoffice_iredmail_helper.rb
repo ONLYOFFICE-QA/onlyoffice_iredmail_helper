@@ -74,7 +74,7 @@ END_OF_MESSAGE
       close
     end
 
-    def get_text_body_email_by_subject(options = {}, times = 300)
+    def mail_by_subject(options = {}, times = 300)
       login
       @imap.select('INBOX')
       start_time = Time.now
@@ -87,26 +87,7 @@ END_OF_MESSAGE
 
           @imap.store(message_id, '+FLAGS', [:Seen])
           close
-          return mail[:body]
-        end
-      end
-      nil
-    end
-
-    def get_html_body_email_by_subject(options = {}, times = 300)
-      login
-      @imap.select('INBOX')
-      start_time = Time.now
-      while Time.now - start_time < times
-        get_emails_search_or_new(options).each do |message_id|
-          mail = get_mail_data(message_id)
-          mail_subject_found = mail[:subject].to_s.upcase
-          mail_subject_to_be_found = options[:subject].to_s.upcase
-          next unless mail_subject_found.include? mail_subject_to_be_found
-
-          @imap.store(message_id, '+FLAGS', [:Seen])
-          close
-          return mail[:html_body]
+          return mail
         end
       end
       nil

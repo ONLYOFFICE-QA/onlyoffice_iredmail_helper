@@ -25,5 +25,19 @@ module OnlyofficeIredmailHelper
       end
       false
     end
+
+    def get_text_body_email_by_subject(options = {}, times = 300)
+      mail = mail_by_subject(options, times)
+      return nil unless mail
+
+      mail[:body]
+    end
+
+    def get_html_body_email_by_subject(options = {}, times = 300)
+      mail = mail_by_subject(options, times)
+      return nil unless mail
+
+      mail[:html_body]
+    end
   end
 end
