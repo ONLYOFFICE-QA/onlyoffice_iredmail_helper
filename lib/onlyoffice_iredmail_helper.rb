@@ -85,7 +85,11 @@ END_OF_MESSAGE
           mail_subject_to_be_found = options[:subject].to_s.upcase
           next unless mail_subject_found.include? mail_subject_to_be_found
 
-          @imap.store(message_id, '+FLAGS', [:Seen])
+          if options[:move_out]
+            move_out_message(message_id)
+          else
+            @imap.store(message_id, '+FLAGS', [:Seen])
+          end
           close
           return mail
         end
