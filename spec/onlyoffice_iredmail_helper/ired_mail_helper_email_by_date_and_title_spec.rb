@@ -10,11 +10,13 @@ RSpec.describe OnlyofficeIredmailHelper::IredMailHelper, '#email_by_date_and_tit
 
   it 'email_by_date_and_message' do
     mail_helper.send_mail(subject: title, mailto: mail_helper.username)
-    expect(mail_helper.email_by_date_and_title(Date.today, title, 10)[:subject]).to eq(title)
+    expect(mail_helper.email_by_date_and_title(subject: title,
+                                               timeout: 10)[:subject]).to eq(title)
   end
 
   it 'email_by_date_and_message subject start with match' do
     mail_helper.send_mail(subject: title, mailto: mail_helper.username)
-    expect(mail_helper.email_by_date_and_title(Date.today, 'email title', 10)[:subject]).to eq(title)
+    expect(mail_helper.email_by_date_and_title(subject: 'email title',
+                                               timeout: 10)[:subject]).to eq(title)
   end
 end
