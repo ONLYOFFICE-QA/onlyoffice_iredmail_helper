@@ -10,7 +10,8 @@ module OnlyofficeIredmailHelper
     # @return [Hash, False] mail data and false is none found
     def email_by_date_and_title(date: Date.today,
                                 subject: nil,
-                                timeout: 300)
+                                timeout: 300,
+                                move_out: true)
       start_date = date.strftime('%d-%b-%Y')
       end_date = (date + 1).strftime('%d-%b-%Y')
 
@@ -22,6 +23,11 @@ module OnlyofficeIredmailHelper
           mail_data = get_mail_data(message_id)
           next unless mail_data[:subject].start_with?(subject)
 
+          if move_out
+            move_out_message(message_id)
+          else
+            @imap.store(message_id, '+FLAGS', [:Seen])
+          end
           close
           return mail_data
         end
