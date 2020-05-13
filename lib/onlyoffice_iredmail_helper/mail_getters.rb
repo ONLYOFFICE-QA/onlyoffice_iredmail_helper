@@ -5,7 +5,7 @@ module OnlyofficeIredmailHelper
   module MailGetters
     # Search email by specific date and message title
     # @param date [Date] date to search
-    # @param subject [String] title of message
+    # @param subject [String] check if message is start_with this string
     # @return [Hash, False] mail data and false is none found
     def email_by_date_and_title(date, subject, times = 300)
       start_date = date.strftime('%d-%b-%Y')
@@ -17,7 +17,7 @@ module OnlyofficeIredmailHelper
       while Time.now - start_time < times
         @imap.search(['SINCE', start_date, 'BEFORE', end_date]).each do |message_id|
           mail_data = get_mail_data(message_id)
-          next unless mail_data[:subject] == subject
+          next unless mail_data[:subject].start_with?(subject)
 
           close
           return mail_data

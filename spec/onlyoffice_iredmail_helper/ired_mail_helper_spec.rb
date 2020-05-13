@@ -37,9 +37,4 @@ RSpec.describe OnlyofficeIredmailHelper::IredMailHelper do
     mail_helper.send_mail(subject: title, mailto: mail_helper.username)
     expect(mail_helper.get_email_by_subject({ subject: title }, 10)[:subject]).to eq(title)
   end
-
-  it 'email_by_date_and_message' do
-    mail_helper.send_mail(subject: title, mailto: mail_helper.username)
-    expect(mail_helper.email_by_date_and_title(Date.today, title, 10)[:subject]).to eq(title)
-  end
 end

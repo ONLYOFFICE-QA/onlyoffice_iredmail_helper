@@ -17,3 +17,4 @@
 
 * Minor refactor in private method
 * Use `mail_by_subject` insetead of `get_email_by_subject`
+* `email_by_date_and_title` perform `start_with?` match for subject
