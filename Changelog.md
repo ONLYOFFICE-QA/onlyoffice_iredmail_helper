@@ -16,3 +16,4 @@
 ### Changes
 
 * Minor refactor in private method
+* Use `mail_by_subject` insetead of `get_email_by_subject`
