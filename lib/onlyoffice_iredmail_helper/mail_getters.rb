@@ -7,13 +7,15 @@ module OnlyofficeIredmailHelper
     # @param date [Date] date to search
     # @param subject [String] check if message is start_with this string
     # @param timeout [Integer] How much time to wait in seconds
+    # @param range [Integer] range in days to extend specified date
     # @return [Hash, False] mail data and false is none found
     def email_by_date_and_title(date: Date.today,
                                 subject: nil,
                                 timeout: 300,
-                                move_out: true)
-      start_date = date.strftime('%d-%b-%Y')
-      end_date = (date + 1).strftime('%d-%b-%Y')
+                                move_out: true,
+                                range: 1)
+      start_date = (date - range).strftime('%d-%b-%Y')
+      end_date = (date + range).strftime('%d-%b-%Y')
 
       login
       @imap.select('INBOX')
