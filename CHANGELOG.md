@@ -8,6 +8,7 @@
 * Add support of `rubocop-performance` and `rubocop-rspec`
 * New method `email_by_date_and_title`
 * Add `markdownlint` checks in CI
+* Add `dependabot` config
 
 ### Fixes
 
@@ -25,3 +26,4 @@
 * Move source to `ONLYOFFICE-QA` organization
 * Cleanup `gemspec` file
 * Drop support of ruby <= 2.4 since they're EOLed
+* Freeze all development dependencies
