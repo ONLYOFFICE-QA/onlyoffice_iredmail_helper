@@ -22,3 +22,5 @@
   range in which to search for emails 
 * Use `GitHub Actions` instead of `TravisCI`
 * Move source to `ONLYOFFICE-QA` organization
+* Cleanup `gemspec` file
+* Drop support of ruby <= 2.4 since they're EOLed
