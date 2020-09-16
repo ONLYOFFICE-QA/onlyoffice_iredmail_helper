@@ -21,3 +21,4 @@
 * Add `range` param to `email_by_date_and_title` to specify day
   range in which to search for emails 
 * Use `GitHub Actions` instead of `TravisCI`
+* Move source to `ONLYOFFICE-QA` organization

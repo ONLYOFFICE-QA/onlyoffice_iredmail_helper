@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description = 'ONLYOFFICE Helper Gem for iRedMail. Used in QA'
   s.email = ['shockwavenn@gmail.com']
   s.files = `git ls-files lib LICENSE.txt README.md`.split($RS)
-  s.homepage = 'https://github.com/onlyoffice-testing-robot/onlyoffice_iredmail_helper'
+  s.homepage = 'https://github.com/ONLYOFFICE-QA/onlyoffice_iredmail_helper'
   s.license = 'AGPL-3.0'
   s.add_runtime_dependency('mail', '~> 2')
   s.add_runtime_dependency('onlyoffice_logger_helper', '~> 1')
