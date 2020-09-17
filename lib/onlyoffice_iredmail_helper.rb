@@ -10,6 +10,7 @@ require 'yaml'
 require_relative 'onlyoffice_iredmail_helper/mail_getters'
 require_relative 'onlyoffice_iredmail_helper/version'
 
+# Namespace of Gem
 module OnlyofficeIredmailHelper
   # Class for working with mail
   class IredMailHelper
@@ -25,17 +26,23 @@ module OnlyofficeIredmailHelper
       @body = options[:body]
     end
 
+    # @return [String] inspect info
     def inspect
       "IredMailHelper domain: #{@domainname}, " \
       "user: #{@username}, " \
       "subject: #{@subject}"
     end
 
+    # Login to email via IMAP
+    # @return [nil]
     def login
       @imap = Net::IMAP.new(@domainname)
       @imap.authenticate('LOGIN', @username, @password)
     end
 
+    # Form a email string
+    # @param msg_data [Hash] params
+    # @return [String] formed mail message
     def create_msg(msg_data = {})
       <<~END_OF_MESSAGE
         From: #{@username}
@@ -48,6 +55,9 @@ module OnlyofficeIredmailHelper
       END_OF_MESSAGE
     end
 
+    # Send mail
+    # @param options [Hash] hash with params
+    # @return [nil]
     def send_mail(options = {})
       options[:subject] ||= @default_subject
       options[:body] ||= @default_body
@@ -57,6 +67,8 @@ module OnlyofficeIredmailHelper
       smtp.finish
     end
 
+    # Delete all messages in inbox
+    # @return [nil]
     def delete_all_messages
       login
       @imap.select('INBOX')
@@ -65,7 +77,9 @@ module OnlyofficeIredmailHelper
       close
     end
 
-    # You need to add '#encoding: ascii-8bit' to your .rb file
+    # Delete email by subject
+    # @param subject [String] email title
+    # @return [nil]
     def delete_email_by_subject(subject)
       login
       @imap.select('INBOX')
@@ -74,6 +88,10 @@ module OnlyofficeIredmailHelper
       close
     end
 
+    # Get email
+    # @param options [Hash] options of get
+    # @param times [Integer] count to check
+    # @return [Hash] mail
     def mail_by_subject(options = {}, times = 300)
       login
       @imap.select('INBOX')
@@ -97,6 +115,10 @@ module OnlyofficeIredmailHelper
       nil
     end
 
+    # Check if message exists by params
+    # @param options [Hash] options of get
+    # @param times [Integer] count to check
+    # @return [True, False] result of check
     def check_email_by_subject(options = {}, times = 300, move_out = false)
       login
       @imap.select('INBOX')
@@ -119,6 +141,11 @@ module OnlyofficeIredmailHelper
       false
     end
 
+    # Get email by subject
+    # @param options [Hash] options of get
+    # @param times [Integer] count to check
+    # @param move_out [True, False] should message to move out
+    # @return [Hash] mail
     def get_email_by_subject(options = {}, times = 300, move_out = false)
       login
       @imap.select('INBOX')
@@ -161,6 +188,9 @@ module OnlyofficeIredmailHelper
       @imap.expunge
     end
 
+    # Get email list via search or all unseen
+    # @param options [Hash] options to search
+    # @return [Array<Mail>] list of mails
     def get_emails_search_or_new(options)
       if options[:search]
         @imap.search([(options[:search_type] || 'BODY').to_s.upcase, options[:search]])
@@ -169,6 +199,10 @@ module OnlyofficeIredmailHelper
       end
     end
 
+    # Get mail data by mail id
+    # @param message_id [Integer] id of message
+    # @param search [String] param to search
+    # @return [Hash] found data
     def get_mail_data(message_id, search = nil)
       msg = @imap.fetch(message_id, 'RFC822')[0].attr['RFC822']
       mail = Mail.read_from_string(msg)

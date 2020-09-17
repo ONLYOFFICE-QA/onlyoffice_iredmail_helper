@@ -11,6 +11,8 @@
 * Add `markdownlint` checks in CI
 * Add `dependabot` config
 * Add `rubocop` checks in CI
+* Add missing `yard` documentation
+* Add task checking for 100% documentation
 
 ### Fixes
 

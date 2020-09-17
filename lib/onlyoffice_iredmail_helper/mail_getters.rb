@@ -37,6 +37,10 @@ module OnlyofficeIredmailHelper
       false
     end
 
+    # Get email text body by subject
+    # @param options [Hash] options of get
+    # @param times [Integer] count to check
+    # @return [String] text body
     def get_text_body_email_by_subject(options = {}, times = 300)
       mail = mail_by_subject(options, times)
       return nil unless mail
@@ -44,6 +48,10 @@ module OnlyofficeIredmailHelper
       mail[:body]
     end
 
+    # Get email html body by subject
+    # @param options [Hash] options of get
+    # @param times [Integer] count to check
+    # @return [String] html body
     def get_html_body_email_by_subject(options = {}, times = 300)
       mail = mail_by_subject(options, times)
       return nil unless mail
