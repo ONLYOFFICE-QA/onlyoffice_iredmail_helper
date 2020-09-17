@@ -29,8 +29,8 @@ module OnlyofficeIredmailHelper
             move_out_message(message_id)
           else
             @imap.store(message_id, '+FLAGS', [:Seen])
+            close
           end
-          close
           return mail_data
         end
       end
