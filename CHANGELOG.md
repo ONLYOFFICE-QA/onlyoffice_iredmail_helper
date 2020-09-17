@@ -7,6 +7,7 @@
 ### Fixes
 
 * Do not try to login more than once
+* Fix missing `markdownlint` config
 
 ## 0.2.0 (2020-09-17)
 
