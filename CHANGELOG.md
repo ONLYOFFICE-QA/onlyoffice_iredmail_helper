@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 0.2.0 (2020-09-17)
+
 ### New Features
 
 * Add `IredMailHelper#get_email_by_subject` method
