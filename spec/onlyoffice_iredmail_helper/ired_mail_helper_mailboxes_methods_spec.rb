@@ -29,5 +29,10 @@ RSpec.describe OnlyofficeIredmailHelper::IredMailHelper do
       mail_helper.delete_mailbox(folder_name)
       expect(mail_helper.mailboxes).not_to include(folder_name)
     end
+
+    it '#delete_mailbox fails with correct info if no mailbof' do
+      expect { mail_helper.delete_mailbox('foo') }
+        .to raise_error(/There is no/)
+    end
   end
 end

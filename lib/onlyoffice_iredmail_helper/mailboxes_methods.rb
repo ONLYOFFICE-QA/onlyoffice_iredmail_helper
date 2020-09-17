@@ -26,6 +26,8 @@ module OnlyofficeIredmailHelper
     # @param name [String] name of folder
     # @return [nil]
     def delete_mailbox(name)
+      raise("There is no mailbox #{name} to delete") unless mailboxes.include?(name)
+
       login
       @imap.select('INBOX')
       @imap.delete(name)
