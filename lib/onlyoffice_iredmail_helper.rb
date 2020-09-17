@@ -37,15 +37,15 @@ module OnlyofficeIredmailHelper
     end
 
     def create_msg(msg_data = {})
-      <<END_OF_MESSAGE
-From: #{@username}
-To: #{msg_data[:mailto]}
-Subject: #{msg_data[:subject]}
-Date: #{Time.now.rfc2822}
-Message-Id: "#{Digest::SHA2.hexdigest(Time.now.to_i.to_s)}@#{@username.split('@').last}"
-
-#{msg_data[:body]}
-END_OF_MESSAGE
+      <<~END_OF_MESSAGE
+        From: #{@username}
+        To: #{msg_data[:mailto]}
+        Subject: #{msg_data[:subject]}
+        Date: #{Time.now.rfc2822}
+        Message-Id: "#{Digest::SHA2.hexdigest(Time.now.to_i.to_s)}@#{@username.split('@').last}"
+        
+        #{msg_data[:body]}
+      END_OF_MESSAGE
     end
 
     def send_mail(options = {})
@@ -186,7 +186,7 @@ END_OF_MESSAGE
     def read_defaults
       return if read_env_defaults
 
-      yaml = YAML.load_file(Dir.home + '/.gem-onlyoffice_iredmail_helper/config.yml')
+      yaml = YAML.load_file("#{Dir.home}/.gem-onlyoffice_iredmail_helper/config.yml")
       @default_domain = yaml['domain']
       @default_user = yaml['user']
       @default_password = yaml['password'].to_s
