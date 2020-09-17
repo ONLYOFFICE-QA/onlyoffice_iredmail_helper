@@ -186,7 +186,7 @@ END_OF_MESSAGE
     def read_defaults
       return if read_env_defaults
 
-      yaml = YAML.load_file(Dir.home + '/.gem-onlyoffice_iredmail_helper/config.yml')
+      yaml = YAML.load_file("#{Dir.home}/.gem-onlyoffice_iredmail_helper/config.yml")
       @default_domain = yaml['domain']
       @default_user = yaml['user']
       @default_password = yaml['password'].to_s

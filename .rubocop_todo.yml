@@ -38,8 +38,3 @@ Style/OptionalBooleanParameter:
   Exclude:
     - 'lib/onlyoffice_iredmail_helper.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/StringConcatenation:
-  Exclude:
-    - 'lib/onlyoffice_iredmail_helper.rb'
