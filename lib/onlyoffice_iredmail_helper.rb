@@ -7,6 +7,7 @@ require 'net/smtp'
 require 'onlyoffice_logger_helper'
 require 'time'
 require 'yaml'
+require_relative 'onlyoffice_iredmail_helper/mailboxes_methods'
 require_relative 'onlyoffice_iredmail_helper/mail_getters'
 require_relative 'onlyoffice_iredmail_helper/version'
 
@@ -14,6 +15,7 @@ require_relative 'onlyoffice_iredmail_helper/version'
 module OnlyofficeIredmailHelper
   # Class for working with mail
   class IredMailHelper
+    include MailboxesMethods
     include MailGetters
     attr_reader :username
 

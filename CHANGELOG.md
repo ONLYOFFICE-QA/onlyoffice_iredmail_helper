@@ -15,6 +15,8 @@
 * Add task checking for 100% documentation
 * Add `rake` task for release gem on `rubygems`
   and `GitHub Packages`
+* New method to work with mailboxes `IredMailHelper#mailboxes`,
+  `IredMailHelper#create_mailbox`, `IredMailHelper#delete_mailbox`
 
 ### Fixes
 

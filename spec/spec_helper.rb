@@ -10,6 +10,7 @@ end
 
 require 'bundler/setup'
 require 'onlyoffice_iredmail_helper'
+require 'securerandom'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
