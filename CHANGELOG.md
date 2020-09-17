@@ -5,7 +5,8 @@
 ### New Features
 
 * Add `IredMailHelper#get_email_by_subject` method
-* Add support of `rubocop-performance` and `rubocop-rspec`
+* Add support of `rubocop-performance`,
+  `rubocop-rake` and `rubocop-rspec`
 * New method `email_by_date_and_title`
 * Add `markdownlint` checks in CI
 * Add `dependabot` config
