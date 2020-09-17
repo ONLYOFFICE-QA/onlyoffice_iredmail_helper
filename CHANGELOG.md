@@ -36,3 +36,4 @@
 * Cleanup `gemspec` file
 * Drop support of ruby <= 2.4 since they're EOLed
 * Freeze all development dependencies
+* Extract `IredMailHelper#mark_message_as_seen` to method

@@ -9,6 +9,7 @@ require 'time'
 require 'yaml'
 require_relative 'onlyoffice_iredmail_helper/mailboxes_methods'
 require_relative 'onlyoffice_iredmail_helper/mail_getters'
+require_relative 'onlyoffice_iredmail_helper/message_methods'
 require_relative 'onlyoffice_iredmail_helper/version'
 
 # Namespace of Gem
@@ -17,6 +18,7 @@ module OnlyofficeIredmailHelper
   class IredMailHelper
     include MailboxesMethods
     include MailGetters
+    include MessageMethods
     attr_reader :username
 
     def initialize(options = {})
@@ -109,8 +111,7 @@ module OnlyofficeIredmailHelper
           if options[:move_out]
             move_out_message(message_id)
           else
-            @imap.store(message_id, '+FLAGS', [:Seen])
-            close
+            mark_message_as_seen(message_id)
           end
           return mail
         end
@@ -135,8 +136,7 @@ module OnlyofficeIredmailHelper
           if move_out
             move_out_message(message_id)
           else
-            @imap.store(message_id, '+FLAGS', [:Seen])
-            close
+            mark_message_as_seen(message_id)
           end
           return true
         end
@@ -163,8 +163,7 @@ module OnlyofficeIredmailHelper
           if move_out
             move_out_message(message_id)
           else
-            @imap.store(message_id, '+FLAGS', [:Seen])
-            close
+            mark_message_as_seen(message_id)
           end
           return mail
         end
@@ -219,7 +218,7 @@ module OnlyofficeIredmailHelper
       body = body.body.to_s.gsub(/\s+/, ' ').strip.force_encoding('utf-8') if body
       html_body = mail.html_part
       html_body = html_body.body.to_s.gsub(/\s+/, ' ').strip.force_encoding('utf-8') if html_body
-      @imap.store(message_id, '-FLAGS', [:Seen]) unless search
+      mark_message_as_seen(message_id, close_connection: false) unless search
       { subject: subject, body: body, html_body: html_body }
     end
 
