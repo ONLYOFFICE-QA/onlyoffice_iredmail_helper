@@ -26,6 +26,7 @@ module OnlyofficeIredmailHelper
       @password = options[:password] || @default_password
       @subject = options[:subject] || @default_subject
       @body = options[:body]
+      @mailbox_for_archive = 'checked'
     end
 
     # @return [String] inspect info
@@ -185,9 +186,14 @@ module OnlyofficeIredmailHelper
     # @param message_id [String] id of message
     # @return [Void]
     def move_out_message(message_id)
-      @imap.copy(message_id, 'checked')
+      create_mailbox(@mailbox_for_archive) unless mailboxes.include?(@mailbox_for_archive)
+
+      login
+      @imap.select('INBOX')
+      @imap.copy(message_id, @mailbox_for_archive)
       @imap.store(message_id, '+FLAGS', [:Deleted])
       @imap.expunge
+      close
     end
 
     # Get email list via search or all unseen
