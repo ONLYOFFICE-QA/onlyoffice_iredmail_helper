@@ -41,6 +41,8 @@ module OnlyofficeIredmailHelper
     # Login to email via IMAP
     # @return [nil]
     def login
+      return if @imap
+
       @imap = Net::IMAP.new(@domainname)
       @imap.authenticate('LOGIN', @username, @password)
     end
@@ -179,6 +181,7 @@ module OnlyofficeIredmailHelper
       @imap.close
       @imap.logout
       @imap.disconnect
+      @imap = nil
     end
 
     # Move out message to `checked` directory

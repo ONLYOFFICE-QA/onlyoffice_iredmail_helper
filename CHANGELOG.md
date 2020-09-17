@@ -2,6 +2,13 @@
 
 ## master (unreleased)
 
+## 0.2.1 (2020-09-17)
+
+### Fixes
+
+* Do not try to login more than once
+* Fix missing `markdownlint` config
+
 ## 0.2.0 (2020-09-17)
 
 ### New Features
