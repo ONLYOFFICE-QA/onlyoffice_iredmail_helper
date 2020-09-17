@@ -9,6 +9,7 @@ module OnlyofficeIredmailHelper
       @imap.select('INBOX')
       folders = @imap.list('%', '%').map(&:name)
       close
+      OnlyofficeLoggerHelper.log("Get list of mailboxes: #{folders}")
       folders
     end
 
@@ -20,6 +21,7 @@ module OnlyofficeIredmailHelper
       @imap.select('INBOX')
       @imap.create(name)
       close
+      OnlyofficeLoggerHelper.log("Created new mailbox: #{name}")
     end
 
     # Delete mailbox with name
@@ -32,6 +34,7 @@ module OnlyofficeIredmailHelper
       @imap.select('INBOX')
       @imap.delete(name)
       close
+      OnlyofficeLoggerHelper.log("Delete mailbox by name: #{name}")
     end
   end
 end
