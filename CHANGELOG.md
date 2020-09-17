@@ -9,6 +9,7 @@
 * New method `email_by_date_and_title`
 * Add `markdownlint` checks in CI
 * Add `dependabot` config
+* Add `rubocop` checks in CI
 
 ### Fixes
 
