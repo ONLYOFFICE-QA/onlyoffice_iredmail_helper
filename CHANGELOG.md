@@ -17,6 +17,7 @@
   and `GitHub Packages`
 * New method to work with mailboxes `IredMailHelper#mailboxes`,
   `IredMailHelper#create_mailbox`, `IredMailHelper#delete_mailbox`
+* Create archive folder while `move_out: true`
 
 ### Fixes
 
