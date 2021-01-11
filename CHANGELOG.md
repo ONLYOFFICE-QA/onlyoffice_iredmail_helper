@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### Changes
+
+* Freeze dependencies version in `Gemfile.lock`
+
 ## 0.2.1 (2020-09-17)
 
 ### Fixes
