@@ -34,8 +34,8 @@ module OnlyofficeIredmailHelper
     # @return [String] inspect info
     def inspect
       "IredMailHelper domain: #{@domainname}, " \
-      "user: #{@username}, " \
-      "subject: #{@subject}"
+        "user: #{@username}, " \
+        "subject: #{@subject}"
     end
 
     # Login to email via IMAP
