@@ -28,3 +28,6 @@ jobs:
       run: rubocop
     - name: Check that code 100% documented
       run: yardoc . | grep -q '100.00% documented'
+    - uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
