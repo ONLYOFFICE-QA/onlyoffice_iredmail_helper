@@ -200,10 +200,14 @@ module OnlyofficeIredmailHelper
 
     # Get email list via search or all unseen
     # @param options [Hash] options to search
+    # @option options [String] :search call search by this string
+    # @option options [Boolean] :include_read should messages marked as read included
     # @return [Array<Mail>] list of mails
     def get_emails_search_or_new(options)
       if options[:search]
         @imap.search([(options[:search_type] || 'BODY').to_s.upcase, options[:search]])
+      elsif options[:include_read]
+        @imap.search(['ALL'])
       else
         @imap.search(['UNSEEN'])
       end
