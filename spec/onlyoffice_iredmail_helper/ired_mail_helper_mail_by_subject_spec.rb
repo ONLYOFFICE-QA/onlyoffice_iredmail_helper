@@ -24,4 +24,10 @@ RSpec.describe OnlyofficeIredmailHelper::IredMailHelper, '#mail_by_subject' do
     mail_helper.mail_by_subject(subject: title)
     expect(mail_helper.mail_by_subject(subject: title, include_read: true)).to be_a(Hash)
   end
+
+  it 'mail_by_subject param move_out moves out message out inbox' do
+    mail_helper.mail_by_subject(subject: title, move_out: true)
+    expect(mail_helper.mail_by_subject({ subject: title, include_read: true },
+                                       1)).to be_nil
+  end
 end
