@@ -7,18 +7,28 @@ require 'net/smtp'
 require 'onlyoffice_logger_helper'
 require 'time'
 require 'yaml'
+require_relative 'onlyoffice_iredmail_helper/delete_methods'
+require_relative 'onlyoffice_iredmail_helper/login_methods'
 require_relative 'onlyoffice_iredmail_helper/mailboxes_methods'
 require_relative 'onlyoffice_iredmail_helper/mail_getters'
 require_relative 'onlyoffice_iredmail_helper/message_methods'
+require_relative 'onlyoffice_iredmail_helper/move_message_methods'
+require_relative 'onlyoffice_iredmail_helper/read_defaults_methods'
+require_relative 'onlyoffice_iredmail_helper/send_message_methods'
 require_relative 'onlyoffice_iredmail_helper/version'
 
 # Namespace of Gem
 module OnlyofficeIredmailHelper
   # Class for working with mail
   class IredMailHelper
+    include DeleteMethods
+    include LoginMethods
     include MailboxesMethods
     include MailGetters
     include MessageMethods
+    include MoveMessageMethods
+    include ReadDefaultsMethods
+    include SendMessageMethods
     attr_reader :username
 
     def initialize(options = {})
@@ -38,63 +48,6 @@ module OnlyofficeIredmailHelper
         "subject: #{@subject}"
     end
 
-    # Login to email via IMAP
-    # @return [nil]
-    def login
-      return if @imap
-
-      @imap = Net::IMAP.new(@domainname)
-      @imap.authenticate('LOGIN', @username, @password)
-    end
-
-    # Form a email string
-    # @param msg_data [Hash] params
-    # @return [String] formed mail message
-    def create_msg(msg_data = {})
-      <<~END_OF_MESSAGE
-        From: #{@username}
-        To: #{msg_data[:mailto]}
-        Subject: #{msg_data[:subject]}
-        Date: #{Time.now.rfc2822}
-        Message-Id: "#{Digest::SHA2.hexdigest(Time.now.to_i.to_s)}@#{@username.split('@').last}"
-        
-        #{msg_data[:body]}
-      END_OF_MESSAGE
-    end
-
-    # Send mail
-    # @param options [Hash] hash with params
-    # @return [nil]
-    def send_mail(options = {})
-      options[:subject] ||= @default_subject
-      options[:body] ||= @default_body
-      options[:mailto] ||= @default_user
-      smtp = Net::SMTP.start(@domainname, 25, @username, @username, @password, :login)
-      smtp.send_message create_msg(options), @username, options[:mailto]
-      smtp.finish
-    end
-
-    # Delete all messages in inbox
-    # @return [nil]
-    def delete_all_messages
-      login
-      @imap.select('INBOX')
-      @imap.store(@imap.search(['ALL']), '+FLAGS', [:Deleted]) unless @imap.search(['ALL']).empty?
-      OnlyofficeLoggerHelper.log('Delete all messages')
-      close
-    end
-
-    # Delete email by subject
-    # @param subject [String] email title
-    # @return [nil]
-    def delete_email_by_subject(subject)
-      login
-      @imap.select('INBOX')
-      id_emails = @imap.search(['SUBJECT', subject.dup.force_encoding('ascii-8bit')])
-      @imap.store(id_emails, '+FLAGS', [:Deleted]) unless id_emails.empty?
-      close
-    end
-
     # Get email
     # @param options [Hash] options of get
     # @param times [Integer] count to check
@@ -110,11 +63,7 @@ module OnlyofficeIredmailHelper
           mail_subject_to_be_found = options[:subject].to_s.upcase
           next unless mail_subject_found.include? mail_subject_to_be_found
 
-          if options[:move_out]
-            move_out_message(message_id)
-          else
-            mark_message_as_seen(message_id)
-          end
+          move_out_or_mark_seen(message_id, options[:move_out])
           return mail
         end
       end
@@ -135,11 +84,7 @@ module OnlyofficeIredmailHelper
           string_to_be_found = options[:subject].to_s.upcase.gsub(/\s+/, ' ')
           next unless string_found.include? string_to_be_found
 
-          if move_out
-            move_out_message(message_id)
-          else
-            mark_message_as_seen(message_id)
-          end
+          move_out_or_mark_seen(message_id, move_out)
           return true
         end
       end
@@ -162,11 +107,7 @@ module OnlyofficeIredmailHelper
           string_to_be_found = options[:subject].to_s.upcase.gsub(/\s+/, ' ')
           next unless string_found.include? string_to_be_found
 
-          if move_out
-            move_out_message(message_id)
-          else
-            mark_message_as_seen(message_id)
-          end
+          move_out_or_mark_seen(message_id, move_out)
           return mail
         end
       end
@@ -174,29 +115,6 @@ module OnlyofficeIredmailHelper
     end
 
     private
-
-    # Correct close of mail account
-    # @return [Void]
-    def close
-      @imap.close
-      @imap.logout
-      @imap.disconnect
-      @imap = nil
-    end
-
-    # Move out message to `checked` directory
-    # @param message_id [String] id of message
-    # @return [Void]
-    def move_out_message(message_id)
-      create_mailbox(@mailbox_for_archive) unless mailboxes.include?(@mailbox_for_archive)
-
-      login
-      @imap.select('INBOX')
-      @imap.copy(message_id, @mailbox_for_archive)
-      @imap.store(message_id, '+FLAGS', [:Deleted])
-      @imap.expunge
-      close
-    end
 
     # Get email list via search or all unseen
     # @param options [Hash] options to search
@@ -227,30 +145,6 @@ module OnlyofficeIredmailHelper
       html_body = html_body.body.to_s.gsub(/\s+/, ' ').strip.force_encoding('utf-8') if html_body
       mark_message_as_seen(message_id, close_connection: false) unless search
       { subject: subject, body: body, html_body: html_body }
-    end
-
-    # Get S3 key and S3 private key
-    # @return [Array <String>] list of keys
-    def read_defaults
-      return if read_env_defaults
-
-      yaml = YAML.load_file("#{Dir.home}/.gem-onlyoffice_iredmail_helper/config.yml")
-      @default_domain = yaml['domain']
-      @default_user = yaml['user']
-      @default_password = yaml['password'].to_s
-      @default_subject = yaml['subject']
-    rescue Errno::ENOENT
-      raise Errno::ENOENT, 'No config found. Please create ~/.gem-onlyoffice_iredmail_helper/config.yml'
-    end
-
-    # Read keys from env variables
-    def read_env_defaults
-      return false unless ENV['IREDMAIL_PASSWORD']
-
-      @default_domain = ENV['IREDMAIL_DOMAIN']
-      @default_user = ENV['IREDMAIL_USER']
-      @default_password = ENV['IREDMAIL_PASSWORD'].to_s
-      @default_subject = ENV['IREDMAIL_SUBJECT']
     end
   end
 end

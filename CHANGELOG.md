@@ -11,6 +11,7 @@
 * Freeze dependencies version in `Gemfile.lock`
 * Use new uploader for `codecov` instead of deprecated one
 * Require `mfa` for releasing gem
+* Reduce rubocop `Metrics/ClassLength` metric
 
 ## 0.2.1 (2020-09-17)
 
