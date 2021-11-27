@@ -7,6 +7,7 @@ require 'net/smtp'
 require 'onlyoffice_logger_helper'
 require 'time'
 require 'yaml'
+require_relative 'onlyoffice_iredmail_helper/login_methods'
 require_relative 'onlyoffice_iredmail_helper/mailboxes_methods'
 require_relative 'onlyoffice_iredmail_helper/mail_getters'
 require_relative 'onlyoffice_iredmail_helper/message_methods'
@@ -16,6 +17,7 @@ require_relative 'onlyoffice_iredmail_helper/version'
 module OnlyofficeIredmailHelper
   # Class for working with mail
   class IredMailHelper
+    include LoginMethods
     include MailboxesMethods
     include MailGetters
     include MessageMethods
@@ -36,15 +38,6 @@ module OnlyofficeIredmailHelper
       "IredMailHelper domain: #{@domainname}, " \
         "user: #{@username}, " \
         "subject: #{@subject}"
-    end
-
-    # Login to email via IMAP
-    # @return [nil]
-    def login
-      return if @imap
-
-      @imap = Net::IMAP.new(@domainname)
-      @imap.authenticate('LOGIN', @username, @password)
     end
 
     # Form a email string
@@ -174,15 +167,6 @@ module OnlyofficeIredmailHelper
     end
 
     private
-
-    # Correct close of mail account
-    # @return [Void]
-    def close
-      @imap.close
-      @imap.logout
-      @imap.disconnect
-      @imap = nil
-    end
 
     # Move out message to `checked` directory
     # @param message_id [String] id of message
