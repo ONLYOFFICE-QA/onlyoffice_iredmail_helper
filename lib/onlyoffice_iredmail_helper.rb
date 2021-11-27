@@ -7,6 +7,7 @@ require 'net/smtp'
 require 'onlyoffice_logger_helper'
 require 'time'
 require 'yaml'
+require_relative 'onlyoffice_iredmail_helper/delete_methods'
 require_relative 'onlyoffice_iredmail_helper/login_methods'
 require_relative 'onlyoffice_iredmail_helper/mailboxes_methods'
 require_relative 'onlyoffice_iredmail_helper/mail_getters'
@@ -17,6 +18,7 @@ require_relative 'onlyoffice_iredmail_helper/version'
 module OnlyofficeIredmailHelper
   # Class for working with mail
   class IredMailHelper
+    include DeleteMethods
     include LoginMethods
     include MailboxesMethods
     include MailGetters
@@ -65,27 +67,6 @@ module OnlyofficeIredmailHelper
       smtp = Net::SMTP.start(@domainname, 25, @username, @username, @password, :login)
       smtp.send_message create_msg(options), @username, options[:mailto]
       smtp.finish
-    end
-
-    # Delete all messages in inbox
-    # @return [nil]
-    def delete_all_messages
-      login
-      @imap.select('INBOX')
-      @imap.store(@imap.search(['ALL']), '+FLAGS', [:Deleted]) unless @imap.search(['ALL']).empty?
-      OnlyofficeLoggerHelper.log('Delete all messages')
-      close
-    end
-
-    # Delete email by subject
-    # @param subject [String] email title
-    # @return [nil]
-    def delete_email_by_subject(subject)
-      login
-      @imap.select('INBOX')
-      id_emails = @imap.search(['SUBJECT', subject.dup.force_encoding('ascii-8bit')])
-      @imap.store(id_emails, '+FLAGS', [:Deleted]) unless id_emails.empty?
-      close
     end
 
     # Get email
