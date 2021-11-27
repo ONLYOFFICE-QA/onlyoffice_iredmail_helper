@@ -61,11 +61,7 @@ module OnlyofficeIredmailHelper
           mail_subject_to_be_found = options[:subject].to_s.upcase
           next unless mail_subject_found.include? mail_subject_to_be_found
 
-          if options[:move_out]
-            move_out_message(message_id)
-          else
-            mark_message_as_seen(message_id)
-          end
+          move_out_or_mark_seen(message_id, options[:move_out])
           return mail
         end
       end
@@ -86,11 +82,7 @@ module OnlyofficeIredmailHelper
           string_to_be_found = options[:subject].to_s.upcase.gsub(/\s+/, ' ')
           next unless string_found.include? string_to_be_found
 
-          if move_out
-            move_out_message(message_id)
-          else
-            mark_message_as_seen(message_id)
-          end
+          move_out_or_mark_seen(message_id, move_out)
           return true
         end
       end
@@ -113,11 +105,7 @@ module OnlyofficeIredmailHelper
           string_to_be_found = options[:subject].to_s.upcase.gsub(/\s+/, ' ')
           next unless string_found.include? string_to_be_found
 
-          if move_out
-            move_out_message(message_id)
-          else
-            mark_message_as_seen(message_id)
-          end
+          move_out_or_mark_seen(message_id, move_out)
           return mail
         end
       end
@@ -125,20 +113,6 @@ module OnlyofficeIredmailHelper
     end
 
     private
-
-    # Move out message to `checked` directory
-    # @param message_id [String] id of message
-    # @return [Void]
-    def move_out_message(message_id)
-      create_mailbox(@mailbox_for_archive) unless mailboxes.include?(@mailbox_for_archive)
-
-      login
-      @imap.select('INBOX')
-      @imap.copy(message_id, @mailbox_for_archive)
-      @imap.store(message_id, '+FLAGS', [:Deleted])
-      @imap.expunge
-      close
-    end
 
     # Get email list via search or all unseen
     # @param options [Hash] options to search
