@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### New Features
+
+* Add `include_read: true` option to all mail getters to include even read mail
+
 ### Changes
 
 * Freeze dependencies version in `Gemfile.lock`
