@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 0.3.0 (2021-11-27)
+
 ### New Features
 
 * Add `include_read: true` option to all mail getters to include even read mail
