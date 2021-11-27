@@ -12,6 +12,7 @@ require_relative 'onlyoffice_iredmail_helper/login_methods'
 require_relative 'onlyoffice_iredmail_helper/mailboxes_methods'
 require_relative 'onlyoffice_iredmail_helper/mail_getters'
 require_relative 'onlyoffice_iredmail_helper/message_methods'
+require_relative 'onlyoffice_iredmail_helper/move_message_methods'
 require_relative 'onlyoffice_iredmail_helper/read_defaults_methods'
 require_relative 'onlyoffice_iredmail_helper/send_message_methods'
 require_relative 'onlyoffice_iredmail_helper/version'
@@ -25,6 +26,7 @@ module OnlyofficeIredmailHelper
     include MailboxesMethods
     include MailGetters
     include MessageMethods
+    include MoveMessageMethods
     include ReadDefaultsMethods
     include SendMessageMethods
     attr_reader :username
