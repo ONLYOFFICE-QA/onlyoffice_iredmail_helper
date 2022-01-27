@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### New Features
+
+* Add all supported version to CI
+
 ## 0.3.0 (2021-11-27)
 
 ### New Features
