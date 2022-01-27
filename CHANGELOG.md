@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 1.0.0 (2022-01-27)
+
 ### New Features
 
 * Add all supported version to CI
