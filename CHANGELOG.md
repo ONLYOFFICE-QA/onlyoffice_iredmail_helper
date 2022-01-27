@@ -2,6 +2,14 @@
 
 ## master (unreleased)
 
+### New Features
+
+* Add all supported version to CI
+
+### Fixes
+
+* Fix dependencies problem with `net/smpt` on `ruby-3.1`
+
 ## 0.3.0 (2021-11-27)
 
 ### New Features
