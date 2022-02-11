@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### Fixes
+
+* Fix `markdownlint` failure because of old `nodejs` in CI
+
 ## 1.0.0 (2022-01-27)
 
 ### New Features
