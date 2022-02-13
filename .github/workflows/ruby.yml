@@ -6,39 +6,32 @@ jobs:
     continue-on-error: ${{ matrix.allow-failures }}
     strategy:
       matrix:
-        ruby: [ '2.6', '2.7', '3.0', '3.1' ]
-        allow-failures: [ false ]
+        ruby: ['2.6', '2.7', '3.0', '3.1']
+        allow-failures: [false]
         include:
           - ruby: head
             allow-failures: true
       max-parallel: 1
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby ${{ matrix.ruby }}
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-    - name: Build and test with Rake
-      env:
-        IREDMAIL_DOMAIN: ${{ secrets.IREDMAIL_DOMAIN }}
-        IREDMAIL_USER: ${{ secrets.IREDMAIL_USER }}
-        IREDMAIL_PASSWORD: ${{ secrets.IREDMAIL_PASSWORD }}
-        IREDMAIL_SUBJECT: ${{ secrets.IREDMAIL_SUBJECT }}
-      run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
-        bundle exec rake
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '16'    
-    - name: Check markdown files using `markdownlint`
-      run: |
-        npm install -g markdownlint-cli
-        markdownlint *.md
-    - name: Check source files using `rubocop`
-      run: rubocop
-    - name: Check that code 100% documented
-      run: yardoc . | grep -q '100.00% documented'
-    - uses: codecov/codecov-action@v2
-      with:
-        fail_ci_if_error: true
+      - uses: actions/checkout@v2
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Build and test with Rake
+        env:
+          IREDMAIL_DOMAIN: ${{ secrets.IREDMAIL_DOMAIN }}
+          IREDMAIL_USER: ${{ secrets.IREDMAIL_USER }}
+          IREDMAIL_PASSWORD: ${{ secrets.IREDMAIL_PASSWORD }}
+          IREDMAIL_SUBJECT: ${{ secrets.IREDMAIL_SUBJECT }}
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rake
+      - name: Check source files using `rubocop`
+        run: rubocop
+      - name: Check that code 100% documented
+        run: yardoc . | grep -q '100.00% documented'
+      - uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
