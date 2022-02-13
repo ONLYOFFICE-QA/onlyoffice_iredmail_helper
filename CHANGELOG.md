@@ -6,6 +6,10 @@
 
 * Fix `markdownlint` failure because of old `nodejs` in CI
 
+### Changes
+
+* Remove `codeclimate` config, since we don't use it any more
+
 ## 1.0.0 (2022-01-27)
 
 ### New Features
