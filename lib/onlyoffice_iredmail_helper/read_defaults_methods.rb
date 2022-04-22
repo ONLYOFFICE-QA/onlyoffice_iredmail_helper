@@ -21,7 +21,7 @@ module OnlyofficeIredmailHelper
 
     # Read keys from env variables
     def read_env_defaults
-      return false unless ENV.key?['IREDMAIL_PASSWORD']
+      return false unless ENV.key?('IREDMAIL_PASSWORD')
 
       @default_domain = ENV.fetch('IREDMAIL_DOMAIN', 'unknown_domain')
       @default_user = ENV.fetch('IREDMAIL_USER', 'unknown_user')
