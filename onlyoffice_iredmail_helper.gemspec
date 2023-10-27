@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name = OnlyofficeIredmailHelper::NAME
   s.version = OnlyofficeIredmailHelper::VERSION
   s.platform = Gem::Platform::RUBY
-  s.required_ruby_version = '>= 2.7'
+  s.required_ruby_version = '>= 3.0'
   s.authors = ['ONLYOFFICE', 'Pavel Lobashov']
   s.summary = 'ONLYOFFICE Helper Gem for iRedMail'
   s.description = 'ONLYOFFICE Helper Gem for iRedMail. Used in QA'

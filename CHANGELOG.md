@@ -5,6 +5,7 @@
 ### New Features
 
 * Add `yamllint` check in CI
+* Add `ruby-3.2` to CI
 
 ### Fixes
 
@@ -17,7 +18,7 @@
 * Changes from `rubocop-rspec` update to 2.9.0
 * Fix `rubocop-1.28.1` code issues
 * Set `--fail-fast` for rspec tests
-* Drop support of `ruby-2.6`, since it's EOL'ed
+* Drop support of `ruby-2.6`, `ruby-2.7`, since it's EOL'ed
 
 ## 1.0.0 (2022-01-27)
 
