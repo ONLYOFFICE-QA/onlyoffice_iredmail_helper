@@ -10,6 +10,7 @@ module OnlyofficeIredmailHelper
 
       @imap = Net::IMAP.new(@domainname)
       @imap.authenticate('LOGIN', @username, @password)
+      mailbox_select('INBOX')
     end
 
     private

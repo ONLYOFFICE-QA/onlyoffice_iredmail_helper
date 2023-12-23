@@ -9,7 +9,6 @@ module OnlyofficeIredmailHelper
     # @return [nil]
     def mark_message_as_seen(message_id, close_connection: true)
       login
-      @imap.select('INBOX')
       @imap.store(message_id, '+FLAGS', [:Seen])
       close if close_connection
     end
