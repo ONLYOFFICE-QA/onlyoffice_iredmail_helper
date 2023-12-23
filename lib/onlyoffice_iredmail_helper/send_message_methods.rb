@@ -25,9 +25,19 @@ module OnlyofficeIredmailHelper
       options[:subject] ||= @default_subject
       options[:body] ||= @default_body
       options[:mailto] ||= @default_user
-      smtp = Net::SMTP.start(@domainname, 25, @username, @username, @password, :login)
+      smtp = create_smtp_connection
       smtp.send_message create_msg(options), @username, options[:mailto]
       smtp.finish
+    end
+
+    private
+
+    # Method that will create an SMTP connection to configure server
+    # @return [Net:SMTP] created connection
+    def create_smtp_connection
+      Net::SMTP.start(@domainname, 25, @username, @username, @password, :login)
+    rescue StandardError => e
+      raise e.class, "Can't create SMTP connection because of #{e}"
     end
   end
 end

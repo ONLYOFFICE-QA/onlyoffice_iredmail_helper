@@ -19,6 +19,7 @@
 * Fix `rubocop-1.28.1` code issues
 * Set `--fail-fast` for rspec tests
 * Drop support of `ruby-2.6`, `ruby-2.7`, since it's EOL'ed
+* Extract creating SMTP connection to separate method
 
 ## 1.0.0 (2022-01-27)
 
