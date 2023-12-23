@@ -44,7 +44,7 @@ module OnlyofficeIredmailHelper
 
       @imap.select(name)
       @current_mailbox = name
-      OnlyofficeLoggerHelper.log("Selected current mailbox: #{name}")
+      OnlyofficeLoggerHelper.log("Mailbox selected: #{name}")
     end
   end
 end
