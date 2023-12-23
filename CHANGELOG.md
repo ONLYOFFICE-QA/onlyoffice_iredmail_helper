@@ -9,6 +9,7 @@
 * Add `ruby-3.3` to CI
 * Add `dependabot` check for `GitHub Actions`
 * Add `rake cleanup_mailboxes` to clean mailboxes created by CI
+* New `IredMailHelper#mailbox_select` method
 
 ### Fixes
 
@@ -27,6 +28,7 @@
 * Extract creating SMTP connection to separate method
 * Migrate to `codecov-4` CI action
 * Prohibit parallel run of CI (cause conflicts with multiple PR's)
+* Force `INBOX` mailbox select on login
 
 ## 1.0.0 (2022-01-27)
 

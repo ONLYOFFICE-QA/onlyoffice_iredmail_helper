@@ -7,7 +7,6 @@ module OnlyofficeIredmailHelper
     # @return [nil]
     def delete_all_messages
       login
-      @imap.select('INBOX')
       @imap.store(@imap.search(['ALL']), '+FLAGS', [:Deleted]) unless @imap.search(['ALL']).empty?
       OnlyofficeLoggerHelper.log('Delete all messages')
       close
@@ -18,7 +17,6 @@ module OnlyofficeIredmailHelper
     # @return [nil]
     def delete_email_by_subject(subject)
       login
-      @imap.select('INBOX')
       id_emails = @imap.search(['SUBJECT', subject.dup.force_encoding('ascii-8bit')])
       @imap.store(id_emails, '+FLAGS', [:Deleted]) unless id_emails.empty?
       close
