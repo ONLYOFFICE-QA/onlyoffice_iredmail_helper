@@ -12,7 +12,6 @@ module OnlyofficeIredmailHelper
       create_mailbox(@mailbox_for_archive) unless mailboxes.include?(@mailbox_for_archive)
 
       login
-      @imap.select('INBOX')
       @imap.copy(message_id, @mailbox_for_archive)
       @imap.store(message_id, '+FLAGS', [:Deleted])
       @imap.expunge

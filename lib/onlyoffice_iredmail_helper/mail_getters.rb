@@ -18,7 +18,6 @@ module OnlyofficeIredmailHelper
       end_date = (date + range).strftime('%d-%b-%Y')
 
       login
-      @imap.select('INBOX')
       start_time = Time.now
       while (Time.now - start_time) < timeout
         @imap.search(['SINCE', start_date, 'BEFORE', end_date]).each do |message_id|

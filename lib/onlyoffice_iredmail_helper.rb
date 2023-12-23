@@ -54,7 +54,6 @@ module OnlyofficeIredmailHelper
     # @return [Hash] mail
     def mail_by_subject(options = {}, times = 300)
       login
-      @imap.select('INBOX')
       start_time = Time.now
       while Time.now - start_time < times
         get_emails_search_or_new(options).each do |message_id|
@@ -76,7 +75,6 @@ module OnlyofficeIredmailHelper
     # @return [True, False] result of check
     def check_email_by_subject(options = {}, times = 300, move_out = false)
       login
-      @imap.select('INBOX')
       start_time = Time.now
       while Time.now - start_time < times
         get_emails_search_or_new(options).each do |message_id|
@@ -98,7 +96,6 @@ module OnlyofficeIredmailHelper
     # @return [Hash] mail
     def get_email_by_subject(options = {}, times = 300, move_out = false)
       login
-      @imap.select('INBOX')
       start_time = Time.now
       while Time.now - start_time < times
         get_emails_search_or_new(options).each do |message_id|
