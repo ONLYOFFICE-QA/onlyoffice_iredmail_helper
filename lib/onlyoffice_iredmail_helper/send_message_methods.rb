@@ -13,7 +13,7 @@ module OnlyofficeIredmailHelper
         Subject: #{msg_data[:subject]}
         Date: #{Time.now.rfc2822}
         Message-Id: "#{Digest::SHA2.hexdigest(Time.now.to_i.to_s)}@#{@username.split('@').last}"
-
+                
         #{msg_data[:body]}
       END_OF_MESSAGE
     end
