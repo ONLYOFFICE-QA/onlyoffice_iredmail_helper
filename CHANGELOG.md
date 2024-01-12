@@ -11,7 +11,6 @@
 ### Fixes
 
 * Fix `markdownlint` failure because of old `nodejs` in CI
-* Run only one CI task in parallel, to avoid conflicts
 
 ### Changes
 
