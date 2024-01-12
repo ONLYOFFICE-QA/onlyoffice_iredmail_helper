@@ -2,6 +2,8 @@ name: Ruby
 on: [push]
 jobs:
   build:
+    concurrency:
+      group: ${{ github.head_ref ||  github.ref }}
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.allow-failures }}
     strategy:
