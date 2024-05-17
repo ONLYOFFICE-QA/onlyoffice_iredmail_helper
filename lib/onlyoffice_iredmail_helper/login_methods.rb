@@ -9,7 +9,7 @@ module OnlyofficeIredmailHelper
       return if @imap
 
       @imap = Net::IMAP.new(@domainname)
-      @imap.authenticate('LOGIN', @username, @password)
+      @imap.authenticate('PLAIN', @username, @password)
     end
 
     private

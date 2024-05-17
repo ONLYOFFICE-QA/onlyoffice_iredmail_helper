@@ -12,8 +12,8 @@ module OnlyofficeIredmailHelper
 
       yaml = YAML.load_file("#{Dir.home}/.gem-onlyoffice_iredmail_helper/config.yml")
       @default_domain = yaml['domain']
-      @default_user = yaml['user']
-      @default_password = yaml['password'].to_s
+      @default_user = 'onlyoffice_iredmail_helper-ci@qamail.teamlab.info'
+      @default_password = '}2t6kKCSw6'
       @default_subject = yaml['subject']
     rescue Errno::ENOENT
       raise Errno::ENOENT, 'No config found. Please create ~/.gem-onlyoffice_iredmail_helper/config.yml'
