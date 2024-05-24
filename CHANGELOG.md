@@ -8,11 +8,13 @@
 * Add `ruby-3.2` to CI
 * Add `ruby-3.3` to CI
 * Add `dependabot` check for `GitHub Actions`
+* Add `rake cleanup_mailboxes` to clean mailboxes created by CI
 
 ### Fixes
 
 * Fix `markdownlint` failure because of old `nodejs` in CI
 * Fix warning on login about deprecated `LOGIN` type of login
+* Fix test suite not to create 1 new mailbox for every run
 
 ### Changes
 

@@ -20,6 +20,7 @@ RSpec.describe OnlyofficeIredmailHelper::IredMailHelper do
     it '#create_mailbox method create new mailbox' do
       mail_helper.create_mailbox(folder_name)
       expect(mail_helper.mailboxes).to include(folder_name)
+      mail_helper.delete_mailbox(folder_name)
     end
   end
 
