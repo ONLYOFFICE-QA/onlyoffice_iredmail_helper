@@ -26,6 +26,7 @@
 * Drop support of `ruby-2.6`, `ruby-2.7`, since it's EOL'ed
 * Extract creating SMTP connection to separate method
 * Migrate to `codecov-4` CI action
+* Prohibit parallel run of CI (cause conflicts with multiple PR's)
 
 ## 1.0.0 (2022-01-27)
 
