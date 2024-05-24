@@ -12,6 +12,7 @@
 ### Fixes
 
 * Fix `markdownlint` failure because of old `nodejs` in CI
+* Fix warning on login about deprecated `LOGIN` type of login
 
 ### Changes
 
