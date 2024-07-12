@@ -29,6 +29,7 @@
 * Migrate to `codecov-4` CI action
 * Prohibit parallel run of CI (cause conflicts with multiple PR's)
 * Force `INBOX` mailbox select on login
+* Fix `rubocop-1.65.0` cop `Gemspec/AddRuntimeDependency`
 
 ## 1.0.0 (2022-01-27)
 
