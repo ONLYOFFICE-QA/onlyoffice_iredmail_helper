@@ -7,6 +7,7 @@
 * Add `yamllint` check in CI
 * Add `ruby-3.2` to CI
 * Add `ruby-3.3` to CI
+* Add `ruby-3.4` to CI
 * Add `dependabot` check for `GitHub Actions`
 * Add `rake cleanup_mailboxes` to clean mailboxes created by CI
 * New `IredMailHelper#mailbox_select` method
@@ -30,6 +31,7 @@
 * Prohibit parallel run of CI (cause conflicts with multiple PR's)
 * Force `INBOX` mailbox select on login
 * Fix `rubocop-1.65.0` cop `Gemspec/AddRuntimeDependency`
+* Remove `ruby-3.0` from CI, since it's EOLed
 
 ## 1.0.0 (2022-01-27)
 
