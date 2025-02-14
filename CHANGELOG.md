@@ -31,7 +31,7 @@
 * Prohibit parallel run of CI (cause conflicts with multiple PR's)
 * Force `INBOX` mailbox select on login
 * Fix `rubocop-1.65.0` cop `Gemspec/AddRuntimeDependency`
-* Remove `ruby-3.0` from CI, since it's EOLed
+* [Breaking] Drop support of `ruby-3.0`, since it's EOLed
 
 ## 1.0.0 (2022-01-27)
 
