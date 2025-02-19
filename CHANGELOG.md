@@ -11,6 +11,7 @@
 * Add `dependabot` check for `GitHub Actions`
 * Add `rake cleanup_mailboxes` to clean mailboxes created by CI
 * New `IredMailHelper#mailbox_select` method
+* New `IredMailHelper#use_ssl` option to use SSL while connecting to mail server
 
 ### Fixes
 
