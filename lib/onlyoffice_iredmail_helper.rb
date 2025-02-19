@@ -30,6 +30,8 @@ module OnlyofficeIredmailHelper
     include ReadDefaultsMethods
     include SendMessageMethods
     attr_reader :username
+    # @return [Boolean] use ssl or not
+    attr_reader :use_ssl
 
     def initialize(options = {})
       read_defaults
@@ -38,6 +40,7 @@ module OnlyofficeIredmailHelper
       @password = options[:password] || @default_password
       @subject = options[:subject] || @default_subject
       @body = options[:body]
+      @use_ssl = options[:use_ssl] || false
       @mailbox_for_archive = 'checked'
     end
 

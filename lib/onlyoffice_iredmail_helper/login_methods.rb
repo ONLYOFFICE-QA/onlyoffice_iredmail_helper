@@ -8,7 +8,11 @@ module OnlyofficeIredmailHelper
     def login
       return if @imap
 
-      @imap = Net::IMAP.new(@domainname)
+      @imap = if @use_ssl
+                Net::IMAP.new(@domainname, port: 993, ssl: true)
+              else
+                Net::IMAP.new(@domainname)
+              end
       @imap.authenticate('PLAIN', @username, @password)
       @current_mailbox = nil
       mailbox_select('INBOX')
