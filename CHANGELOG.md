@@ -18,6 +18,7 @@
 * Fix `markdownlint` failure because of old `nodejs` in CI
 * Fix warning on login about deprecated `LOGIN` type of login
 * Fix test suite not to create 1 new mailbox for every run
+* Run `rubocop` in CI through `bundle exec`
 
 ### Changes
 
